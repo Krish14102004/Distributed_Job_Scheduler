@@ -11,13 +11,18 @@ export default function WorkersPage() {
   }, []);
 
   return (
-    <div>
-      <h2>Workers</h2>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <ul>
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Workers</h2>
+      </div>
+      {error && <div className="message error">{error}</div>}
+      <ul className="list-reset spacer-top-lg">
         {workers.map((worker, index) => (
-          <li key={worker.id}>
-            #{index + 1} {worker.hostname} - status {worker.status} - last heartbeat {worker.heartbeats?.[0]?.reportedAt}
+          <li key={worker.id} className="list-item">
+            <strong>#{index + 1}</strong> {worker.hostname}
+            <div className="info-text">
+              status {worker.status} · last heartbeat {worker.heartbeats?.[0]?.reportedAt}
+            </div>
           </li>
         ))}
       </ul>

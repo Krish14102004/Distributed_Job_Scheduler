@@ -24,20 +24,22 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div>
-      <h2>Projects</h2>
-      <form onSubmit={handleCreate} style={{ display: "grid", gap: 12, maxWidth: 400 }}>
-        <label>
-          Project name
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Projects</h2>
+      </div>
+      <form onSubmit={handleCreate} className="form-grid">
+        <div className="form-field">
+          <label>Project name</label>
           <input value={name} onChange={(e) => setName(e.target.value)} required />
-        </label>
-        <button>Create Project</button>
+        </div>
+        {error && <div className="message error">{error}</div>}
+        <button type="submit" className="primary">Create Project</button>
       </form>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <ul>
+      <ul className="list-reset">
         {projects.map((project, index) => (
-          <li key={project.id}>
-            #{index + 1} {project.name}
+          <li key={project.id} className="list-item">
+            <strong>#{index + 1}</strong> {project.name}
           </li>
         ))}
       </ul>

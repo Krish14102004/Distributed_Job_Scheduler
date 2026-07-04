@@ -10,9 +10,11 @@ export default function MetricsPage() {
   }, []);
 
   return (
-    <div>
-      <h2>Metrics</h2>
-      {error && <div style={{ color: "red" }}>{error}</div>}
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Metrics</h2>
+      </div>
+      {error && <div className="message error">{error}</div>}
       <pre>{JSON.stringify(metrics, null, 2)}</pre>
     </div>
   );

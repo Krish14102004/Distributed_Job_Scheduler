@@ -63,71 +63,83 @@ export default function JobsPage() {
   };
 
   return (
-    <div>
-      <h2>Jobs</h2>
-      <div style={{ display: "grid", gap: 12, maxWidth: 400 }}>
-        <label>
-          Queue
-          <select value={queueId} onChange={(e) => setQueueId(e.target.value)}>
-            <option value="">All queues</option>
-            {queues.map((queue) => (
-              <option key={queue.id} value={queue.id}>
-                {queue.name} ({queue.id})
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Status
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option value="">Any</option>
-            <option value="QUEUED">Queued</option>
-            <option value="CLAIMED">Claimed</option>
-            <option value="RUNNING">Running</option>
-            <option value="COMPLETED">Completed</option>
-            <option value="FAILED">Failed</option>
-            <option value="RETRYING">Retrying</option>
-            <option value="DEAD_LETTER">Dead Letter</option>
-          </select>
-        </label>
-        <button onClick={fetchJobs}>Load Jobs</button>
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Jobs</h2>
       </div>
-      <h3>Create Job</h3>
-      <form onSubmit={handleCreateJob} style={{ display: "grid", gap: 12, maxWidth: 400 }}>
-        <label>
-          Queue
-          <select value={queueId} onChange={(e) => setQueueId(e.target.value)} required>
-            {queues.map((queue) => (
-              <option key={queue.id} value={queue.id}>
-                {queue.name} ({queue.id})
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Payload (JSON)
-          <textarea value={payload} onChange={(e) => setPayload(e.target.value)} rows={5} />
-        </label>
-        <label>
-          Run At (optional)
-          <input value={runAt} onChange={(e) => setRunAt(e.target.value)} placeholder="YYYY-MM-DDTHH:MM:SS" />
-        </label>
-        <label>
-          Priority
-          <input type="number" value={priority} onChange={(e) => setPriority(parseInt(e.target.value, 10))} />
-        </label>
-        <label>
-          Max Attempts
-          <input type="number" value={maxAttempts} onChange={(e) => setMaxAttempts(parseInt(e.target.value, 10))} />
-        </label>
-        <button type="submit">Submit Job</button>
-      </form>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {success && <div style={{ color: "green" }}>{success}</div>}
-      <ul>
+      <div className="split-grid">
+        <div className="section-card">
+          <h3 className="section-title">Filters</h3>
+          <div className="form-grid">
+            <div className="form-field">
+              <label>Queue</label>
+              <select value={queueId} onChange={(e) => setQueueId(e.target.value)}>
+                <option value="">All queues</option>
+                {queues.map((queue) => (
+                  <option key={queue.id} value={queue.id}>
+                    {queue.name} ({queue.id})
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-field">
+              <label>Status</label>
+              <select value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option value="">Any</option>
+                <option value="QUEUED">Queued</option>
+                <option value="CLAIMED">Claimed</option>
+                <option value="RUNNING">Running</option>
+                <option value="COMPLETED">Completed</option>
+                <option value="FAILED">Failed</option>
+                <option value="RETRYING">Retrying</option>
+                <option value="DEAD_LETTER">Dead Letter</option>
+              </select>
+            </div>
+            <button type="button" className="secondary" onClick={fetchJobs}>
+              Load Jobs
+            </button>
+          </div>
+        </div>
+        <div className="section-card">
+          <h3 className="section-title">Create Job</h3>
+          <form onSubmit={handleCreateJob} className="form-grid">
+            <div className="form-field">
+              <label>Queue</label>
+              <select value={queueId} onChange={(e) => setQueueId(e.target.value)} required>
+                {queues.map((queue) => (
+                  <option key={queue.id} value={queue.id}>
+                    {queue.name} ({queue.id})
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="form-field">
+              <label>Payload (JSON)</label>
+              <textarea value={payload} onChange={(e) => setPayload(e.target.value)} rows={5} />
+            </div>
+            <div className="form-field">
+              <label>Run At (optional)</label>
+              <input value={runAt} onChange={(e) => setRunAt(e.target.value)} placeholder="YYYY-MM-DDTHH:MM:SS" />
+            </div>
+            <div className="form-field">
+              <label>Priority</label>
+              <input type="number" value={priority} onChange={(e) => setPriority(parseInt(e.target.value, 10))} />
+            </div>
+            <div className="form-field">
+              <label>Max Attempts</label>
+              <input type="number" value={maxAttempts} onChange={(e) => setMaxAttempts(parseInt(e.target.value, 10))} />
+            </div>
+            {error && <div className="message error">{error}</div>}
+            {success && <div className="message success">{success}</div>}
+            <button type="submit" className="primary">Submit Job</button>
+          </form>
+        </div>
+      </div>
+      <ul className="list-reset spacer-top-lg">
         {jobs.map((job, index) => (
-          <li key={job.id}>
-            #{index + 1} - {job.status} - attempts {job.attempts}
+          <li key={job.id} className="list-item">
+            <div><strong>#{index + 1}</strong> {job.status}</div>
+            <div className="info-text">attempts {job.attempts}</div>
           </li>
         ))}
       </ul>

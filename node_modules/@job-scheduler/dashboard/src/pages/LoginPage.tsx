@@ -25,21 +25,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12, maxWidth: 360 }}>
-        <label>
-          Email
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Login</h2>
+      </div>
+      <form onSubmit={handleSubmit} className="form-grid">
+        <div className="form-field">
+          <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </label>
-        <label>
-          Password
+        </div>
+        <div className="form-field">
+          <label>Password</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </label>
-        {error && <div style={{ color: "red" }}>{error}</div>}
-        <button type="submit">Login</button>
+        </div>
+        {error && <div className="message error">{error}</div>}
+        <button type="submit" className="primary">Login</button>
       </form>
-      <p>
+      <p className="muted-paragraph">
         Don't have an account? <Link to="/signup">Sign up</Link>
       </p>
     </div>

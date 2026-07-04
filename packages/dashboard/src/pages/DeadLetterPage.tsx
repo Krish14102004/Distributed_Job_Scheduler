@@ -15,14 +15,19 @@ export default function DeadLetterPage() {
   };
 
   return (
-    <div>
-      <h2>Dead Letter Queue</h2>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <ul>
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Dead Letter Queue</h2>
+      </div>
+      {error && <div className="message error">{error}</div>}
+      <ul className="list-reset spacer-top-lg">
         {jobs.map((job) => (
-          <li key={job.jobId}>
-            {job.jobId} - {job.reason}
-            <button onClick={() => handleRetry(job.jobId)} style={{ marginLeft: 12 }}>
+          <li key={job.jobId} className="list-item">
+            <div>
+              <strong>{job.jobId}</strong>
+            </div>
+            <div className="info-text">{job.reason}</div>
+            <button type="button" className="secondary" onClick={() => handleRetry(job.jobId)}>
               Retry
             </button>
           </li>

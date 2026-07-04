@@ -34,15 +34,17 @@ export default function QueuesPage() {
   };
 
   return (
-    <div>
-      <h2>Queues</h2>
-      <form onSubmit={handleCreate} style={{ display: "grid", gap: 12, maxWidth: 400 }}>
-        <label>
-          Queue name
+    <div className="card">
+      <div className="page-header">
+        <h2 className="page-title">Queues</h2>
+      </div>
+      <form onSubmit={handleCreate} className="form-grid">
+        <div className="form-field">
+          <label>Queue name</label>
           <input value={name} onChange={(e) => setName(e.target.value)} required />
-        </label>
-        <label>
-          Project
+        </div>
+        <div className="form-field">
+          <label>Project</label>
           <select value={projectId} onChange={(e) => setProjectId(e.target.value)} required>
             {projects.map((project) => (
               <option key={project.id} value={project.id}>
@@ -50,22 +52,25 @@ export default function QueuesPage() {
               </option>
             ))}
           </select>
-        </label>
-        <label>
-          Priority
+        </div>
+        <div className="form-field">
+          <label>Priority</label>
           <input type="number" value={priority} onChange={(e) => setPriority(parseInt(e.target.value, 10))} />
-        </label>
-        <label>
-          Concurrency Limit
+        </div>
+        <div className="form-field">
+          <label>Concurrency Limit</label>
           <input type="number" value={concurrencyLimit} onChange={(e) => setConcurrencyLimit(parseInt(e.target.value, 10))} />
-        </label>
-        {error && <div style={{ color: "red" }}>{error}</div>}
-        <button>Create Queue</button>
+        </div>
+        {error && <div className="message error">{error}</div>}
+        <button type="submit" className="primary">Create Queue</button>
       </form>
-      <ul>
+      <ul className="list-reset spacer-top-lg">
         {queues.map((queue, index) => (
-          <li key={queue.id}>
-            #{index + 1} {queue.name} (priority {queue.priority}, concurrency {queue.concurrencyLimit})
+          <li key={queue.id} className="list-item">
+            <strong>#{index + 1}</strong> {queue.name}
+            <div className="info-text">
+              priority {queue.priority}, concurrency {queue.concurrencyLimit}
+            </div>
           </li>
         ))}
       </ul>
