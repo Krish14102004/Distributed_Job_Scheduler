@@ -1,0 +1,18 @@
+{
+  "name": "job-scheduler",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "vitest run",
+    "dev:api": "npm run dev --workspace=packages/api",
+    "dev:worker": "npm run dev --workspace=packages/worker",
+    "dev:scheduler": "npm run dev --workspace=packages/scheduler",
+    "dev:dashboard": "npm run dev --workspace=packages/dashboard"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
+  }
+}
