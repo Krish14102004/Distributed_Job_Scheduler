@@ -9,7 +9,7 @@
     "dev:api": "npm run dev --workspace=packages/api",
     "dev:worker": "npm run dev --workspace=packages/worker",
     "dev:scheduler": "npm run dev --workspace=packages/scheduler",
-    "dev:dashboard": "npm run dev --workspace=packages/dashboard"
+    "dev:dashboard": "node node_modules/vite/dist/node/cli.js --config packages/dashboard/vite.config.ts"
   },
   "devDependencies": {
     "typescript": "^5.6.3",

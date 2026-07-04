@@ -23,8 +23,14 @@ router.post("/signup", validate(signupSchema), async (req, res, next) => {
 
     const passwordHash = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({ data: { email, passwordHash } });
+    const organization = await prisma.organization.create({
+      data: {
+        name: `${email}'s Organization`,
+        members: { create: { userId: user.id, role: "OWNER" } }
+      }
+    });
     const token = jwt.sign({ userId: user.id, email: user.email }, env.jwtSecret);
-    return res.status(201).json({ token, user: { id: user.id, email: user.email } });
+    return res.status(201).json({ token, user: { id: user.id, email: user.email }, organizationId: organization.id });
   } catch (err) {
     next(err);
   }

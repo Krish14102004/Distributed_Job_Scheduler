@@ -7,6 +7,7 @@ import queueRoutes from "./routes/queues.routes";
 import jobRoutes from "./routes/jobs.routes";
 import deadLetterRoutes from "./routes/dead-letter.routes";
 import workerRoutes from "./routes/workers.routes";
+import metricsRoutes from "./routes/metrics.routes";
 import { env } from "./config/env";
 
 const app = express();
@@ -18,6 +19,7 @@ app.use("/queues", queueRoutes);
 app.use("/jobs", jobRoutes);
 app.use("/dead-letter", deadLetterRoutes);
 app.use("/workers", workerRoutes);
+app.use("/metrics", metricsRoutes);
 app.use(errorHandler);
 
 app.listen(env.port, () => console.log(`API listening on ${env.port}`));

@@ -83,6 +83,23 @@ router.post("/:queueId/scheduled-jobs", validate(scheduleSchema), async (req, re
   }
 });
 
+router.get("/", async (req, res, next) => {
+  try {
+    const queueId = req.query.queueId as string | undefined;
+    const status = req.query.status as string | undefined;
+    const jobs = await prisma.job.findMany({
+      where: {
+        ...(queueId ? { queueId } : {}),
+        ...(status ? { status: status as any } : {})
+      },
+      orderBy: { createdAt: "desc" }
+    });
+    return res.json(jobs);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/:queueId/jobs", async (req, res, next) => {
   try {
     const status = req.query.status as string | undefined;

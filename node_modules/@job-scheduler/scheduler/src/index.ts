@@ -9,12 +9,12 @@ async function materializeCronJobs() {
     await prisma.job.create({
       data: {
         queueId: scheduled.queueId,
-        payload: scheduled.payloadTemplate,
+        payload: scheduled.payloadTemplate as any,
         status: "QUEUED",
         scheduledAt: new Date()
       }
     });
-    const interval = parser.parseExpression(scheduled.cronExpression);
+    const interval = parser.parse(scheduled.cronExpression);
     const next = interval.next().toDate();
     await prisma.scheduledJob.update({ where: { id: scheduled.id }, data: { lastRunAt: new Date(), nextRunAt: next } });
   }
